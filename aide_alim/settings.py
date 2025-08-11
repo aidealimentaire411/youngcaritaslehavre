@@ -80,18 +80,10 @@ WSGI_APPLICATION = 'aide_alim.wsgi.application'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
 DATABASES = {
-
-    'default': dj_database_url.parse(os.environ.get('DATABASE_URL'))
-
-    # 'default': {
-    #    'ENGINE': 'django.db.backends.postgresql',
-    #    'NAME': 'db_aide',  # Nom de la base de données
-    #    'USER': 'postgres',          # Nom d'utilisateur
-    #    'PASSWORD': 'mosta27',  # Mot de passe
-    #    'HOST': 'localhost',         # Hôte (par défaut localhost)
-    #    'PORT': '5432',              # Port (par défaut 5432)
-    # }
-
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',  # fichier SQLite dans la racine du projet
+    }
 }
 
 
