@@ -1,1 +1,1 @@
-web: gunicorn aide_alim.wsgi
+run_superuser: python create_superuser.py
