@@ -1,14 +1,18 @@
 import os
 import django
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'votre_projet.settings')
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "aide_alim.settings")
 django.setup()
 
-from django.contrib.auth import get_user_model
+from django.contrib.auth.models import User
 
-User = get_user_model()
-if not User.objects.filter(username='admin').exists():
-    User.objects.create_superuser('admin2', 'h7c@hotmail.com', 'Mosta27000@')
-    print("Superutilisateur créé avec succès!")
+# Remplace par les informations de ton nouveau superuser
+username = "adminn"
+email = "nouveladmin@example.com"
+password = "nv123"
+
+if User.objects.filter(username=username).exists():
+    print(f"L'utilisateur {username} existe déjà.")
 else:
-    print("L'utilisateur admin existe déjà.")
+    User.objects.create_superuser(username=username, email=email, password=password)
+    print(f"Superuser {username} créé !")
