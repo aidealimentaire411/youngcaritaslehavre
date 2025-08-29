@@ -7,7 +7,12 @@ from django import forms
 from .models import Etudiant, Symbole, AnneeScolaire, Passage
 from datetime import datetime
 from django.core.exceptions import ValidationError
+import csv
+from django.http import HttpResponse
 
+admin.site.site_title = "Administration - Colis Étudiants"
+admin.site.site_header = "Plateforme de Distribution Alimentaire"
+admin.site.index_title = "Gestion des colis et bénéficiaires"
 
 class EtudiantForm(forms.ModelForm):
     class Meta:
@@ -29,6 +34,7 @@ class EtudiantForm(forms.ModelForm):
 
 @admin.register(Etudiant)
 class EtudiantAdmin(admin.ModelAdmin):
+
     form = EtudiantForm
 
     # 🆕 remplace 'date_naissance' par la méthode personnalisée
@@ -82,7 +88,31 @@ class EtudiantAdmin(admin.ModelAdmin):
     ajouter_passage_bouton.short_description = "Passage"
     ajouter_passage_bouton.allow_tags = True
 
+    actions = ["exporter_csv"]
 
+
+    def exporter_csv(self, request, queryset):
+        # Réponse HTTP pour forcer le téléchargement
+        response = HttpResponse(content_type='text/csv')
+        response['Content-Disposition'] = 'attachment; filename="etudiants.csv"'
+
+        writer = csv.writer(response)
+        writer.writerow(["Nom", "Prénom", "Date de naissance", "Email", "Carte étudiant", "Symbole", "Année scolaire", "Actif"])
+
+        for etudiant in queryset:
+            writer.writerow([
+                etudiant.nom,
+                etudiant.prenom,
+                etudiant.date_naissance.strftime("%d/%m/%Y"),
+                etudiant.email,
+                etudiant.carte_etudiant,
+                etudiant.symbole.nom if etudiant.symbole else "",
+                etudiant.annee_scolaire.libelle if etudiant.annee_scolaire else "",
+                "Oui" if etudiant.active else "Non",
+            ])
+        return response
+
+    exporter_csv.short_description = "📥 Exporter la sélection en CSV"
 
 @admin.register(AnneeScolaire)
 class AnneeScolaireAdmin(admin.ModelAdmin):
