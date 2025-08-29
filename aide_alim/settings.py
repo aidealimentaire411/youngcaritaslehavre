@@ -25,7 +25,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-nl!l*u@v15aw!83xd(6nu-@op61hw3nh!q^8+8*=n=hx3l3*gh'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 ALLOWED_HOSTS = ['youngcaritaslehavre.osc-fr1.scalingo.io']
 
 STATIC_ROOT = BASE_DIR / 'staticfiles'
@@ -141,5 +141,5 @@ DEFAULT_FROM_EMAIL = 'aidealimentaire411@gmail.com'
 
 
 
-CSRF_COOKIE_SECURE = False
-SESSION_COOKIE_SECURE = False
+CSRF_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = True
