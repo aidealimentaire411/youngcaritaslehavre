@@ -138,3 +138,8 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'aidealimentaire411@gmail.com'
 EMAIL_HOST_PASSWORD = 'ahqg eken wvea onfs'  # utilise un mot de passe d’application
 DEFAULT_FROM_EMAIL = 'aidealimentaire411@gmail.com'
+
+
+
+CSRF_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = True
