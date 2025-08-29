@@ -1,1 +1,1 @@
-python create_superuser.py
+run_superuser: python create_superuser.py
